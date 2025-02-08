@@ -9,6 +9,21 @@
 #define I2C_SCL 15
 #define endereco 0x3C
 
+void generateAscTest(char *upperCase, char *lowerCase)
+{
+    if (*upperCase <= 'Z')
+    {
+        (*upperCase)++;
+        (*lowerCase)++;
+    }
+    else
+    {
+        *upperCase = 'A';
+        *lowerCase = 'a';
+    }
+    return;
+}
+
 int main()
 {
     stdio_init_all();
@@ -26,15 +41,16 @@ int main()
 
     ssd1306_fill(&ssd, false);
     ssd1306_send_data(&ssd);
-
+    char lowerCase = 'a', upperCase = 'A';
     while (true)
     {
         ssd1306_fill(&ssd, false);
         ssd1306_rect(&ssd, 3, 3, 122, 58, true, false);
-
-        ssd1306_draw_string(&ssd, "Aa", 8, 10);
+        char string[3] = {upperCase, lowerCase, '\0'};
+        ssd1306_draw_string(&ssd, string, 8, 10);
 
         ssd1306_send_data(&ssd);
         sleep_ms(1000);
+        generateAscTest(&upperCase, &lowerCase);
     }
 }
