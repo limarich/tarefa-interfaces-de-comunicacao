@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <stdlib.h>
 #include "pico/stdlib.h"
 #include "hardware/i2c.h"
@@ -26,8 +27,10 @@ void generateAscTest(char *upperCase, char *lowerCase)
 
 int main()
 {
+
     stdio_init_all();
 
+    // Inicializa a I2c
     i2c_init(I2C_PORT, 400 * 1000);
 
     gpio_set_function(I2C_SDA, GPIO_FUNC_I2C);
@@ -44,13 +47,22 @@ int main()
     char lowerCase = 'a', upperCase = 'A';
     while (true)
     {
-        ssd1306_fill(&ssd, false);
-        ssd1306_rect(&ssd, 3, 3, 122, 58, true, false);
-        char string[3] = {upperCase, lowerCase, '\0'};
-        ssd1306_draw_string(&ssd, string, 8, 10);
+        if (stdio_usb_connected())
+        { // Certifica-se de que o USB está conectado
+            char c;
+            if (scanf("%c", &c) == 1)
+            { // Lê caractere da entrada padrão
+                printf("Recebido: '%c'\n", c);
+            }
+        }
+        sleep_ms(40);
+        // ssd1306_fill(&ssd, false);
+        // ssd1306_rect(&ssd, 3, 3, 122, 58, true, false);
+        // char string[3] = {upperCase, lowerCase, '\0'};
+        // ssd1306_draw_string(&ssd, string, 8, 10);
 
-        ssd1306_send_data(&ssd);
-        sleep_ms(1000);
-        generateAscTest(&upperCase, &lowerCase);
+        // ssd1306_send_data(&ssd);
+        // sleep_ms(1000);
+        // generateAscTest(&upperCase, &lowerCase);
     }
 }
