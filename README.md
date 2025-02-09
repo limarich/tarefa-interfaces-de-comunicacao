@@ -104,6 +104,10 @@ Ativa **interrupções GPIO** para os botões físicos.
 
 ---
 
+## Vídeo
+
+Para o projeto em questão o vídeo demnstrativo pode ser visto no link: https://youtu.be/3TBovhd8Wk0?si=LQKpDzXFd3xdS7Ja.
+
 ## 📢 Autor
 👤 **Desenvolvido por Richard Lima Ribeiro**  
 📧 Contato: **richard.esclima@gmail.com**  
