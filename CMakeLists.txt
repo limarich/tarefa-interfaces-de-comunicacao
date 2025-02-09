@@ -35,7 +35,7 @@ pico_sdk_init()
 
 # Add executable. Default name is the project name, version 0.1
 
-add_executable(tarefa-interfaces-de-comunicacao tarefa-interfaces-de-comunicacao.c inc/ssd1306.c )
+add_executable(tarefa-interfaces-de-comunicacao tarefa-interfaces-de-comunicacao.c inc/ssd1306.c libs/leds.c libs/animation.c)
 
 pico_set_program_name(tarefa-interfaces-de-comunicacao "tarefa-interfaces-de-comunicacao")
 pico_set_program_version(tarefa-interfaces-de-comunicacao "0.1")
@@ -44,10 +44,15 @@ pico_set_program_version(tarefa-interfaces-de-comunicacao "0.1")
 pico_enable_stdio_uart(tarefa-interfaces-de-comunicacao 1)
 pico_enable_stdio_usb(tarefa-interfaces-de-comunicacao 1)
 
+# PIO
+pico_generate_pio_header(tarefa-interfaces-de-comunicacao ${CMAKE_CURRENT_LIST_DIR}/pio_matrix.pio)
+
+
 # Add the standard library to the build
 target_link_libraries(tarefa-interfaces-de-comunicacao
         pico_stdlib
-        hardware_i2c)
+        hardware_i2c
+        hardware_pio)
 
 # Add the standard include files to the build
 target_include_directories(tarefa-interfaces-de-comunicacao PRIVATE
