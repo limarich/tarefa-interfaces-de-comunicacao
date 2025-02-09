@@ -160,13 +160,18 @@ int main()
     // interrupções
     enable_interrupt();
 
+    clear_all_leds(pio, sm);
+
     while (true)
     {
+
+        // display_message("abcdefghijklmnopqrstuvwxyz");
         if (stdio_usb_connected())
         { // Certifica-se de que o USB está conectado
             char c;
             if (scanf("%c", &c) == 1)
             { // Lê caractere da entrada padrão
+                    clear_all_leds(pio, sm);
                 printf("Recebido: '%c'\n", c);
                 displayCharacter(c);
 
