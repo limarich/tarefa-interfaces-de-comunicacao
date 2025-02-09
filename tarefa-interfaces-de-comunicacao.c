@@ -181,6 +181,8 @@ int main()
 
     // garante que a matriz de leds estará apagada inicialmente
     clear_all_leds(pio, sm);
+    gpio_put(BLUE_LED, false);
+    gpio_put(GREEN_LED, false);
 
     while (true)
     {
@@ -202,6 +204,6 @@ int main()
                 }
             }
         }
-        sleep_ms(40);
+        sleep_ms(100);
     }
 }
